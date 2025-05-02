@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
+
 class SecondaryApp extends StatefulWidget {
+
+
   const SecondaryApp({super.key});
 
   @override
@@ -12,21 +15,40 @@ class _SecondaryAppState extends State<SecondaryApp> {
 
 //Lugar para funciones
   void _cadenaPrinter() {
-    print(cadena);
+    setState(() {
+      cadena = "Cambio de String";
+    });
   }
+
 
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text("Segunda Pantalla"),
+        leading: IconButton(
+          onPressed: Navigator.of(context).pop,
+          icon: Icon(Icons.arrow_back),
+          tooltip: "Atras",
+          ),
+          
         backgroundColor: Colors.blue,
       ),
       body: Center(
-        child: ElevatedButton(
-          onPressed: _cadenaPrinter,
-          child: Text(cadena)),
+        child: Column(
+          children: [
+            ElevatedButton(
+              onPressed:null,
+              child: Text("Llamar print text")),
+            FloatingActionButton.extended(
+              onPressed: _cadenaPrinter,
+              label: Text(cadena),
+              ),
+          ],
+        ),
       ),
     );
   }
 }
+

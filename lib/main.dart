@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'secondary.dart';
 void main() {
   runApp(const MainApp());
-  print("INICIO LA APLICACIÓN");
 }
 
 
@@ -13,7 +12,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
+      debugShowCheckedModeBanner: true,
       theme: ThemeData(
         fontFamily: 'Monocraft',
         iconTheme: const IconThemeData(color: Colors.teal),
@@ -43,7 +42,15 @@ class _ThirdAppState extends State<ThirdApp> {
   }
 
   void _printText() {
-    print("Texto");
+    setState(() {
+      print("Esto es un mensaje de debug");
+    });
+    
+  }
+
+  void _otrafuncion () async {
+    await Future.delayed(Duration(seconds: 10));
+//funcion asincrona no referenciada
   }
 
   void _changeScreen() {
@@ -64,10 +71,10 @@ class _ThirdAppState extends State<ThirdApp> {
             child: Column(
               children: [
                 FloatingActionButton.extended(
+                  heroTag: "Soy otro tag",
                   tooltip: "Botón",
                   onPressed:() {
                     _function();
-                    _printText();
                   },
                   icon: const Icon(Icons.account_box, color: Colors.green),
                   label: Text(
@@ -96,7 +103,7 @@ class _ThirdAppState extends State<ThirdApp> {
                     ),
                 ),
                 Hero(
-                  tag: "flutter-example-image",
+                  tag: "flutter-example-image-2",
                   child: Image(
                     image:
                     NetworkImage("https://th.bing.com/th/id/OIP.S9ys_hBZMdBZzIOurhMTOwHaEK?rs=1&pid=ImgDetMain"),
