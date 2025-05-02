@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-
+import 'secondary.dart';
 void main() {
   runApp(const MainApp());
+  print("INICIO LA APLICACIÓN");
 }
 
 
@@ -12,6 +13,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         fontFamily: 'Monocraft',
         iconTheme: const IconThemeData(color: Colors.teal),
@@ -40,7 +42,14 @@ class _ThirdAppState extends State<ThirdApp> {
     });
   }
 
+  void _printText() {
+    print("Texto");
+  }
 
+  void _changeScreen() {
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) => SecondaryApp()));
+
+  }
 
 
   @override
@@ -56,7 +65,10 @@ class _ThirdAppState extends State<ThirdApp> {
               children: [
                 FloatingActionButton.extended(
                   tooltip: "Botón",
-                  onPressed: _function,
+                  onPressed:() {
+                    _function();
+                    _printText();
+                  },
                   icon: const Icon(Icons.account_box, color: Colors.green),
                   label: Text(
                     vartext,  // primer parámetro: el string
@@ -73,17 +85,24 @@ class _ThirdAppState extends State<ThirdApp> {
                   letterSpacing: 10,
                   ),
                 ),
-                Image(
-                  image:AssetImage(("assets/images/adtime.png")),
-                  fit: BoxFit.contain,
-                  //width: 900,
-                  //height: 900,
-                  semanticLabel: "Soy una imagen de hora de aventura",
-                  ),
-                Image(image:
-                  NetworkImage("https://th.bing.com/th/id/OIP.S9ys_hBZMdBZzIOurhMTOwHaEK?rs=1&pid=ImgDetMain"),
-                  fit: BoxFit.fitWidth,
-                  )
+                Hero(
+                  tag: "adventure-time",
+                  child: Image(
+                    image:AssetImage(("assets/images/adtime.png")),
+                    fit: BoxFit.contain,
+                    //width: 900,
+                    //height: 900,
+                    semanticLabel: "Soy una imagen de hora de aventura",
+                    ),
+                ),
+                Hero(
+                  tag: "flutter-example-image",
+                  child: Image(
+                    image:
+                    NetworkImage("https://th.bing.com/th/id/OIP.S9ys_hBZMdBZzIOurhMTOwHaEK?rs=1&pid=ImgDetMain"),
+                    fit: BoxFit.fitWidth,
+                    ),
+                )
               ],
             ),
           ),
@@ -96,13 +115,13 @@ class _ThirdAppState extends State<ThirdApp> {
             width: 500,
             height: 40,
             child: FloatingActionButton(
-              onPressed: _function,
+              onPressed: _changeScreen,
               shape: BeveledRectangleBorder(),
               hoverColor: Color.fromARGB(100, 1, 1, 1),
               child: Text(
                 style: TextStyle(fontSize: 20,color: Colors.black,
                 ),
-                "USAME SOY UN PERSISTENT FOOTER BUTTON"
+                "USAME SOY UN PERSISTENT FOOTER BUTTON",
               ),
             ),
           ),
