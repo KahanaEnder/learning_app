@@ -41,16 +41,13 @@ class _ThirdAppState extends State<ThirdApp> {
     });
   }
 
-  void _printText() {
-    setState(() {
-      print("Esto es un mensaje de debug");
-    });
-    
+  void _changeToUsefulWidget() {
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) => MiWidget()));
   }
 
-  void _otrafuncion () async {
-    await Future.delayed(Duration(seconds: 10));
-//funcion asincrona no referenciada
+  void _otrafuncion ()  {
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) => MiWidgetEstatico()));
+
   }
 
   void _changeScreen() {
@@ -75,6 +72,7 @@ class _ThirdAppState extends State<ThirdApp> {
                   tooltip: "Botón",
                   onPressed:() {
                     _function();
+                    _otrafuncion();
                   },
                   icon: const Icon(Icons.account_box, color: Colors.green),
                   label: Text(
@@ -121,19 +119,104 @@ class _ThirdAppState extends State<ThirdApp> {
           child: SizedBox(
             width: 500,
             height: 40,
-            child: FloatingActionButton(
-              onPressed: _changeScreen,
-              shape: BeveledRectangleBorder(),
-              hoverColor: Color.fromARGB(100, 1, 1, 1),
-              child: Text(
-                style: TextStyle(fontSize: 20,color: Colors.black,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              spacing: 100,
+              children: [
+                ElevatedButton(
+                  onPressed: _changeScreen,
+                  child: Text(
+                    style: TextStyle(fontSize: 20,color: Colors.black,
+                    ),
+                    "USAME",
+                  ),
                 ),
-                "USAME SOY UN PERSISTENT FOOTER BUTTON",
-              ),
+                FloatingActionButton(
+                  onPressed: _changeToUsefulWidget,
+                  heroTag: "Boton-2",
+                  shape: StadiumBorder(),
+                  hoverColor: Colors.white,
+                  tooltip: "Cambiar pantalla",
+                  child:
+                    Text(
+                      "LIC",
+                      style: TextStyle(fontSize: 20,color: Colors.black,
+                    ),
+                  ),
+                    
+                ),
+              ],
             ),
           ),
         )
       ],
+    );
+  }
+}
+
+
+
+
+
+
+
+class MiWidgetEstatico extends StatelessWidget {
+  const MiWidgetEstatico({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return  Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 100, 150, 200),
+        shape: StadiumBorder(),
+      
+      ),
+    );
+  }
+}
+
+
+
+
+
+
+
+
+
+class MiWidget extends StatefulWidget {
+  const MiWidget({super.key});
+
+  @override
+  State<MiWidget> createState() => _MiWidgetState();
+}
+
+class _MiWidgetState extends State<MiWidget> {
+  bool _isChecked = false;
+
+  void _statefulfunction(bool? newValue) {
+    setState(() {
+      _isChecked = newValue ?? false;
+    });
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: AboutDialog(
+        applicationName: "Learning APP",
+        applicationIcon: Icon(Icons.app_shortcut_sharp),
+        applicationVersion: "1.0.0",
+        children: <Widget>[
+          AlertDialog(
+            title: Text("SOY UN TEXTO"),
+          ),
+          Checkbox(
+            value: _isChecked,
+            onChanged: _statefulfunction,
+          ),
+        ],
+      ),
     );
   }
 }
