@@ -1,0 +1,25 @@
+name: learning_app
+description: "A new Flutter project to learn to make flutter proyects"
+publish_to: 'none'
+version: 0.1.1
+
+environment:
+  sdk: ^3.7.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  fonts:
+    - family: Monocraft
+      fonts:
+        - asset: assets/fonts/Monocraft.ttf
+  assets:
+    - assets/images/
+  uses-material-design: true
