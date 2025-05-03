@@ -1,23 +1,30 @@
+//Librerias
 import 'package:flutter/material.dart';
 import 'secondary.dart';
+
+
+
+//Metodo Main
 void main() {
   runApp(const MainApp());
 }
 
 
-
+//Clase principal que se llama en el main (Estatica/Stateless/Sin estado)
 class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+  const MainApp({super.key});//La key es el identificador unico para llamarlo
 
-  @override
+
+//Función que construye el widget
+  @override//Override siempre para construir el widget personalizado que hagamos
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: true,
+      debugShowCheckedModeBanner: false, //Marca de agua del debug
       theme: ThemeData(
-        fontFamily: 'Monocraft',
-        iconTheme: const IconThemeData(color: Colors.teal),
+          fontFamily: 'Monocraft',
+          iconTheme: const IconThemeData(color: Colors.teal), //Aca en el tema del MaterialApp definimos los estilos para todo lo demas
       ),
-      home: const ThirdApp(),
+      home: const ThirdApp(), //Widget root default para la app 
     );
   }
 }
@@ -25,88 +32,113 @@ class MainApp extends StatelessWidget {
 
 
 
-class ThirdApp extends StatefulWidget {
+class ThirdApp extends StatefulWidget { //Widget con estado, aca solo crea la clase
   const ThirdApp({super.key});
 
+
+
   @override
-  State<ThirdApp> createState() => _ThirdAppState();
+  State<ThirdApp> createState() => _ThirdAppState(); //Aca creamos el estado
 }
 
-class _ThirdAppState extends State<ThirdApp> {
+
+
+
+class _ThirdAppState extends State<ThirdApp> { //Estado del widget
   String vartext = "";
 
   void _function() {
-    setState(() {
-      vartext = "Soy esta función";
+    setState(() { //SetState actualiza el estado, no recibe funciones async ni funciona en Stateless
+      vartext = "Bienvenido";
     });
   }
 
   void _changeToUsefulWidget() {
-    Navigator.of(context).push(MaterialPageRoute(builder: (context) => MiWidget()));
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) => MiWidget())); //Navegación simplemente con push
   }
 
   void _otrafuncion ()  {
-    Navigator.of(context).push(MaterialPageRoute(builder: (context) => MiWidgetEstatico()));
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) => MiWidgetEstatico())); //Navegación con push sirve a baja escalabilidad
 
   }
 
   void _changeScreen() {
-    Navigator.of(context).push(MaterialPageRoute(builder: (context) => SecondaryApp()));
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) => SecondaryApp())); //Navegacion PushNamed y GenerationRoute mejor para apps mas grandes y de mayor escala
 
   }
 
 
-  @override
+  @override //Aca buildeamos el widget con sus respectivos hijos que pueden actualizar su estado
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 99, 75, 143),
+      backgroundColor: Colors.purple[900],
       body: Stack(
         fit: StackFit.expand,
         alignment: Alignment.center,
         children: [SingleChildScrollView(
-          child: Center(
-            child: Column(
-              children: [
+            child: Center(
+              child: Column(
+                children: [
                 FloatingActionButton.extended(
-                  heroTag: "Soy otro tag",
-                  tooltip: "Botón",
+                  heroTag: "button-1",
+                  tooltip: "Ir a siguiente pagina",
                   onPressed:() {
                     _function();
                     _otrafuncion();
                   },
-                  icon: const Icon(Icons.account_box, color: Colors.green),
+                  icon: Icon(Icons.account_box, color: Colors.purple[900]),
                   label: Text(
                     vartext,  // primer parámetro: el string
                     selectionColor: Colors.pink,
-                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 40),
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 40), //Usa el estilo del MaterialApp
                   ),
                   backgroundColor: Colors.amberAccent,
                   shape: const StadiumBorder(),
                 ),
                 Text(
-                  "TEXTIBIRIS",
+                  "Flutter App",
                   selectionColor: Colors.pink,
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 40,
-                  letterSpacing: 10,
+                  letterSpacing: 8, 
                   ),
                 ),
-                Hero(
-                  tag: "adventure-time",
-                  child: Image(
-                    image:AssetImage(("assets/images/adtime.png")),
-                    fit: BoxFit.contain,
-                    //width: 900,
-                    //height: 900,
-                    semanticLabel: "Soy una imagen de hora de aventura",
+                // ignore: avoid_unnecessary_containers
+                Container(
+                  height: 500,
+                  width: 500,
+                  decoration: BoxDecoration(color: Colors.amber,shape: BoxShape.rectangle,border: Border.symmetric(),gradient: LinearGradient(colors: [Colors.amber,Colors.white  ])),
+                  child: Hero(
+                    tag: "adventure-time-image",
+                    child: GestureDetector(
+                      onDoubleTap: _changeScreen,
+                      child: Image(
+                        image:AssetImage(("assets/images/adtime.png")),
+                        fit: BoxFit.scaleDown,
+                        width: 100,
+                        height: 100,
+                        semanticLabel: "Soy una imagen de hora de aventura",
+                        ),
                     ),
+                  ),
                 ),
-                Hero(
-                  tag: "flutter-example-image-2",
-                  child: Image(
-                    image:
-                    NetworkImage("https://th.bing.com/th/id/OIP.S9ys_hBZMdBZzIOurhMTOwHaEK?rs=1&pid=ImgDetMain"),
-                    fit: BoxFit.fitWidth,
+                Container(
+                  height: 500,
+                  width: 500,
+                  decoration: BoxDecoration(color: Colors.amber,shape: BoxShape.circle),
+                  child: SizedBox(
+                    width: 300,
+                    height: 300,
+                    child: Hero(
+                      tag: "flutter-example-image-2",
+                      child: Image(
+                        image:
+                        NetworkImage("https://th.bing.com/th/id/OIP.S9ys_hBZMdBZzIOurhMTOwHaEK?rs=1&pid=ImgDetMain"),
+                        fit: BoxFit.cover,
+                        width: 200,
+                        height: 200,
+                        ),
                     ),
+                  ),
                 )
               ],
             ),
@@ -163,6 +195,8 @@ class _ThirdAppState extends State<ThirdApp> {
 class MiWidgetEstatico extends StatelessWidget {
   const MiWidgetEstatico({super.key});
 
+
+
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
@@ -209,7 +243,7 @@ class _MiWidgetState extends State<MiWidget> {
         applicationVersion: "1.0.0",
         children: <Widget>[
           AlertDialog(
-            title: Text("SOY UN TEXTO"),
+            title: Text("LICENCIAS"),
           ),
           Checkbox(
             value: _isChecked,

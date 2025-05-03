@@ -10,8 +10,13 @@ class SecondaryApp extends StatefulWidget {
   State<SecondaryApp> createState() => _SecondaryAppState(); 
 }
 
+
+
+
 class _SecondaryAppState extends State<SecondaryApp> {
+
   String cadena = "Lugar para variables";
+
 
 //Lugar para funciones
   void _cadenaPrinter() {
@@ -35,12 +40,13 @@ class _SecondaryAppState extends State<SecondaryApp> {
           
         backgroundColor: Colors.blue,
       ),
+      
       body: Center(
         child: Column(
           children: [
             ElevatedButton(
               onPressed:null,
-              child: Text("Llamar print text")),
+              child: Text("Función desactivada")),
             FloatingActionButton.extended(
               onPressed: _cadenaPrinter,
               label: Text(cadena),
