@@ -57,7 +57,7 @@ class _ThirdAppState extends State<ThirdApp> { //Estado del widget
     Navigator.of(context).push(MaterialPageRoute(builder: (context) => MiWidget())); //Navegación simplemente con push
   }
 
-  void _otrafuncion ()  {
+  void _otraFuncion()  {
     Navigator.of(context).push(MaterialPageRoute(builder: (context) => MiWidgetEstatico())); //Navegación con push sirve a baja escalabilidad
 
   }
@@ -72,80 +72,67 @@ class _ThirdAppState extends State<ThirdApp> { //Estado del widget
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.purple[900],
-      body: Stack(
-        fit: StackFit.expand,
-        alignment: Alignment.center,
-        children: [SingleChildScrollView(
-            child: Center(
-              child: Column(
-                children: [
-                FloatingActionButton.extended(
-                  heroTag: "button-1",
-                  tooltip: "Ir a siguiente pagina",
-                  onPressed:() {
-                    _function();
-                    _otrafuncion();
-                  },
-                  icon: Icon(Icons.account_box, color: Colors.purple[900]),
-                  label: Text(
-                    vartext,  // primer parámetro: el string
-                    selectionColor: Colors.pink,
-                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 40), //Usa el estilo del MaterialApp
-                  ),
-                  backgroundColor: Colors.amberAccent,
-                  shape: const StadiumBorder(),
-                ),
-                Text(
-                  "Flutter App",
+      body: SingleChildScrollView(
+          child: Center(
+            child: Column(
+              children: [
+              FloatingActionButton.extended(
+                heroTag: "button-1",
+                tooltip: "Ir a siguiente pagina",
+                onPressed:() {
+                  _function();
+                  _otraFuncion();
+                },
+                icon: Icon(Icons.account_box, color: Colors.purple[900]),
+                label: Text(
+                  vartext,  // primer parámetro: el string
                   selectionColor: Colors.pink,
-                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 40,
-                  letterSpacing: 8, 
-                  ),
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 40), //Usa el estilo del MaterialApp
                 ),
-                // ignore: avoid_unnecessary_containers
-                Container(
-                  height: 500,
-                  width: 500,
-                  decoration: BoxDecoration(color: Colors.amber,shape: BoxShape.rectangle,border: Border.symmetric(),gradient: LinearGradient(colors: [Colors.amber,Colors.white  ])),
-                  child: Hero(
-                    tag: "adventure-time-image",
-                    child: GestureDetector(
-                      onDoubleTap: _changeScreen,
-                      child: Image(
-                        image:AssetImage(("assets/images/adtime.png")),
-                        fit: BoxFit.scaleDown,
-                        width: 100,
-                        height: 100,
-                        semanticLabel: "Soy una imagen de hora de aventura",
-                        ),
-                    ),
-                  ),
+                backgroundColor: Colors.amberAccent,
+                shape: const StadiumBorder(),
+              ),
+              Text(
+                "Flutter App",
+                selectionColor: Colors.pink,
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 40,
+                letterSpacing: 8, 
                 ),
-                Container(
-                  height: 500,
-                  width: 500,
-                  decoration: BoxDecoration(color: Colors.amber,shape: BoxShape.circle),
-                  child: SizedBox(
-                    width: 300,
-                    height: 300,
-                    child: Hero(
-                      tag: "flutter-example-image-2",
-                      child: Image(
-                        image:
-                        NetworkImage("https://th.bing.com/th/id/OIP.S9ys_hBZMdBZzIOurhMTOwHaEK?rs=1&pid=ImgDetMain"),
-                        fit: BoxFit.cover,
-                        width: 200,
-                        height: 200,
-                        ),
-                    ),
+              ),
+              // ignore: avoid_unnecessary_containers
+              Container(
+                height: 500,
+                width: 500,
+                decoration: BoxDecoration(
+                  color: Colors.amber,
+                  shape: BoxShape.rectangle,
+                  border: Border.symmetric(),
                   ),
-                )
-              ],
-            ),
+                child: GestureDetector(
+                  onDoubleTap: _changeScreen,
+                  child: Image(
+                    image:AssetImage(("assets/images/adtime.png")),
+                    fit: BoxFit.scaleDown,
+                    semanticLabel: "Soy una imagen de hora de aventura",
+                    ),
+                ),
+              ),
+              Container(
+                height: 500,
+                width: 500,
+                decoration: BoxDecoration(color: Colors.amber,shape: BoxShape.rectangle),
+                child: Image(
+                  image:
+                  NetworkImage("https://th.bing.com/th/id/OIP.S9ys_hBZMdBZzIOurhMTOwHaEK?rs=1&pid=ImgDetMain"),
+                  fit: BoxFit.scaleDown,
+                  width: 50,
+                  height: 50,
+                  ),
+              )
+            ],
           ),
         ),
-      ]
-    ),
+      ),
       persistentFooterButtons: [
         Center(
           child: SizedBox(
@@ -201,9 +188,53 @@ class MiWidgetEstatico extends StatelessWidget {
   Widget build(BuildContext context) {
     return  Scaffold(
       appBar: AppBar(
+        title: Title(title :"Widget Estatico",color:(Colors.amber), child: Text("Widget Estatico")),
         backgroundColor: Color.fromARGB(255, 100, 150, 200),
         shape: StadiumBorder(),
-      
+        elevation: 10,
+        centerTitle: true,
+        titleSpacing: 200,
+      ),
+      body: Center(
+        child: Column(
+          spacing: 100,
+          children: [Row(
+            spacing: 100,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(onPressed: () {},
+              child: Text("1")),
+              ElevatedButton(onPressed: () {},
+              child: Text("2")),
+              ElevatedButton(onPressed: () {},
+              child: Text("3")),
+            ],
+          ),
+          Row(
+            spacing: 100,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(onPressed: () {},
+              child: Text("4")),
+              ElevatedButton(onPressed: () {},
+              child: Text("5")),
+              ElevatedButton(onPressed: () {},
+              child: Text("6")),
+            ],
+          ),
+          Row(
+            spacing: 100,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(onPressed: () {},
+              child: Text("7")),
+              ElevatedButton(onPressed: () {},
+              child: Text("8")),
+              ElevatedButton(onPressed: () {},
+              child: Text("9")),
+            ],
+          ),],
+        ),
       ),
     );
   }
